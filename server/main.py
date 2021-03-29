@@ -16,10 +16,7 @@ def shortcut():
         }
 
     if data.get('command') == 'minimize_all':
-        keyboard.press_and_release('windows+d')
-
-    elif data.get('command') == 'lock_screen':
-        keyboard.press_and_release('windows+l')
+        keyboard.press('windows+d')
 
     else:
         return {"success": False, "message": "command not found"}
