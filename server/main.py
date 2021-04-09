@@ -24,4 +24,9 @@ def shortcut():
     return {"success": True}
 
 
+@app.route('/command/<int:command>')
+def command(command):
+    return {"success": True}
+
+
 app.run(host='0.0.0.0')
