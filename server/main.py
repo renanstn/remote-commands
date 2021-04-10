@@ -1,3 +1,4 @@
+import os
 import keyboard
 from flask import Flask, request
 from peewee import SqliteDatabase, AutoField, IntegerField, CharField, Model
@@ -44,7 +45,7 @@ def shortcut():
 @app.route('/command/<int:command_index>')
 def exec_command(command_index):
     to_exec = Command.get(index=command_index)
-    system(to_exec.command)
+    os.system(to_exec.command)
     print(to_exec.command)
     return {"success": True}
 
