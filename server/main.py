@@ -45,9 +45,19 @@ def shortcut():
 @app.route('/command/<int:command_index>')
 def exec_command(command_index):
     to_exec = Command.get(index=command_index)
-    os.system(to_exec.command)
-    print(to_exec.command)
-    return {"success": True}
+    command = to_exec.command
+    output = os.system(command)
+    # output = subprocess.check_output(to_exec.command)
+    if output == 0:
+        return {
+            "command": command,
+            "success": True
+        }
+    else:
+        return {
+            "command": command,
+            "success": False
+        }
 
 
 if __name__ == '__main__':
