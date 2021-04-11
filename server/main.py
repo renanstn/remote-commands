@@ -63,4 +63,5 @@ def exec_command(command_index):
 
 if __name__ == '__main__':
     Command.create_table()
+    print("* Adicione comandos em http://localhost:5000/admin")
     app.run(host='0.0.0.0')
