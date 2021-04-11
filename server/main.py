@@ -1,13 +1,14 @@
 import os
 import keyboard
+from decouple import config
 from flask import Flask, request
 from peewee import SqliteDatabase, AutoField, IntegerField, CharField, Model
 from flask_admin import Admin
 from flask_admin.contrib.peewee import ModelView
 
 
-DEBUG = True
-SECRET_KEY = 'secret'
+DEBUG = config('DEBUG', cast=bool, default=False)
+SECRET_KEY = config('SECRET_KEY', default="secret")
 FLASK_ADMIN_SWATCH = 'darkly'
 
 app = Flask(__name__)

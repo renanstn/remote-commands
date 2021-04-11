@@ -7,6 +7,7 @@ name = "pypi"
 flask = "*"
 keyboard = "*"
 flask-admin = "*"
+python-decouple = "*"
 
 [dev-packages]
 
