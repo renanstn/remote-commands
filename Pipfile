@@ -8,8 +8,7 @@ flask = "*"
 keyboard = "*"
 flask-admin = "*"
 python-decouple = "*"
+peewee = "*"
+wtf-peewee = "*"
 
 [dev-packages]
-
-[requires]
-python_version = "3.9"
