@@ -2,7 +2,14 @@ import os
 import keyboard
 from decouple import config
 from flask import Flask, request
-from peewee import SqliteDatabase, AutoField, IntegerField, CharField, Model
+from peewee import (
+    SqliteDatabase,
+    AutoField,
+    IntegerField,
+    CharField,
+    Model,
+    DoesNotExist
+)
 from flask_admin import Admin
 from flask_admin.contrib.peewee import ModelView
 
@@ -18,6 +25,9 @@ admin = Admin(app, name='remote-commands', template_mode='bootstrap3')
 
 
 class Command(Model):
+    """
+    View que armazenará os possíveis comandos que poderão ser executados.
+    """
     id = AutoField(primary_key=True)
     index = IntegerField()
     command = CharField(max_length=255)
@@ -26,10 +36,27 @@ class Command(Model):
         database = database
 
 
-admin.add_view(ModelView(Command, database, 'Commands'))
+class CommandView(ModelView):
+    """
+    View da model Command, com a exclusão da coluna 'id' da tela de admin,
+    pois não é interessante exibir este dado.
+    """
+    column_exclude_list = ('id',)
 
+
+# Adiciona as views na tela de Admin:
+admin.add_view(CommandView(Command))
+
+
+# Definição de endpoints da aplicação Flask
 @app.route('/shortcut', methods=['POST'])
 def shortcut():
+    """
+    Recebe um json que deve conter a chave 'command', com o nome de um atalho
+    a ser executado.
+    Atalhos válidos até o momento:
+    - minimize_all: windows + d
+    """
     data = request.get_json()
     if not data.get('command', False):
         return {
@@ -45,10 +72,24 @@ def shortcut():
 
 @app.route('/command/<int:command_index>')
 def exec_command(command_index):
-    to_exec = Command.get(index=command_index)
-    command = to_exec.command
+    """
+    Executa um comando no terminal. O comando deve ser previamente cadastrado
+    na tela de Admin do flask.
+    Informar na URL o index do comando a ser executado.
+    """
+    try:
+        to_exec = Command.get(index=command_index)
+        command = to_exec.command
+    except DoesNotExist:
+        return {
+            "success": False,
+            "message": f"Nenhum comando cadastrado com index {command_index}"
+        }
+
+    # Executa o comando
     output = os.system(command)
     # output = subprocess.check_output(to_exec.command)
+
     if output == 0:
         return {
             "command": command,
