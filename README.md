@@ -48,3 +48,13 @@ Para executar um atalho, envie uma requisição POST com o seguinte body JSON, a
 
 Para executar os comandos, envie uma requisição GET de qualquer dispositivo de sua rede local para:
 - `http://<IP_da_sua_máquina>/command/<index_do_comando>`
+
+## O que eu usei
+
+Este projetinho utiliza os seguintes frameworks e packages para fazer sua magia:
+- **flask**: Micro-framework utilizado para fazer o servidor.
+- **keyboard**: Lib utilizada para disparar atalhos de teclado na máquina.
+- **flask-admin**: Lib que fornece pronta uma área de admin para as Models do app.
+- **python-decouple**: Para pegar variáveis de ambiente.
+- **peewee**: ORM que manipula o banco (que neste caso é um simples sqlite).
+- **wtf-peewee**: Dependência necessária para o flask-admin fazer seus paranauês.
