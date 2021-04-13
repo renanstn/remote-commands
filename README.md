@@ -10,8 +10,22 @@ Eu utilizo este app em conjunto com o app [HTTP Request Shortcuts](https://play.
 
 ## Setup
 
-TODO
+- Clone o repositório
+- Instale as dependência utilizando o `pipenv`
+```sh
+pipenv install
+```
+- Inicie o app com o comando
+```sh
+pipenv run python server/main.py
+```
+ou
+```
+./run.sh
+```
 
 ## Cadastrando comandos
 
-TODO
+Em seu navegador, acesse `http://localhost:5000/admin` para ir a área de cadastros de comandos.
+
+![Flask-admin](images/admin_print.png)
