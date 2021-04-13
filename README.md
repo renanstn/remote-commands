@@ -1,4 +1,4 @@
 # remote-commands
 
-Minúsculo app que apenas executa alguns atalhos em meu PC a partir de uma request vindo de algum dispositivo na rede local. 
+App que executa alguns atalhos ou comandos pré configurados em seu PC a partir de uma request vindo de algum dispositivo na rede local. 
 
