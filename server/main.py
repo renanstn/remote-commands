@@ -64,7 +64,9 @@ def shortcut():
             "message": "send command name in 'command' field"
         }
     if data.get('command') == 'minimize_all':
-        keyboard.press('windows+d')
+        keyboard.press_and_release('windows+d')
+    elif data.get('command') == 'mute_unmute_meet':
+        keyboard.press_and_release('ctrl+d')
     else:
         return {"success": False, "message": "command not found"}
     return {"success": True}
