@@ -10,7 +10,7 @@ Este app sobe um pequeno servidor Flask na sua máquina, e fica ouvindo por requ
 
 Essas requisições podem ativar algum atalho de teclado na sua máquina, ou executar algum comando shell previamente cadastrado.
 
-Eu utilizo este app em conjunto com o app [HTTP Request Shortcuts](https://play.google.com/store/apps/details?id=ch.rmy.android.http_shortcuts&hl=en_US&gl=US) instalado em um celular. A partir dele envio as requests, e o celular funciona como um "controle remoto" que executa comandos no meu PC.
+Eu utilizo este app em conjunto com o app [HTTP Request Shortcuts](https://play.google.com/store/apps/details?id=ch.rmy.android.http_shortcuts&hl=en_US&gl=US) instalado em um celular. A partir dele envio as requests, e o celular funciona como um "controle remoto" que executa comandos no meu PC. Com isso eu economizo alguns alt+TABs e agilizo alguns testes onde preciso rodar o mesmo comando repetidas vezes no shell.
 
 ## Setup
 
@@ -40,18 +40,19 @@ Cadastre quantos comandos quiser.
 
 ### Executando atalhos
 
-Para executar um atalho, envie uma requisição POST com o seguinte body JSON, a partir de qualquer dispositivo de sua rede local para:
+Para executar um atalho, envie uma requisição `POST` com o seguinte body JSON, a partir de qualquer dispositivo de sua rede local para:
 - `http://<IP_da_sua_máquina>/shortcut`
 ```json
 {
-	"command": "<nome_do_atalho>"
+    "command": "<nome_do_atalho>"
 }
 ```
 
 ### Executando comandos
 
-Para executar os comandos, envie uma requisição GET de qualquer dispositivo de sua rede local para:
+Para executar os comandos, envie uma requisição `GET` de qualquer dispositivo de sua rede local para:
 - `http://<IP_da_sua_máquina>/command/<index_do_comando>`
+  - O `index_do_comando` aqui  o mesmo número que você cadastrou na área de **admin**
 
 ## O que eu usei
 
