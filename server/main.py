@@ -1,4 +1,5 @@
 import os
+import socket
 import keyboard
 from decouple import config
 from flask import Flask, request
@@ -106,5 +107,7 @@ def exec_command(command_index):
 
 if __name__ == '__main__':
     Command.create_table()
-    print("* Adicione comandos em http://localhost:5000/admin")
+    local_ip = socket.gethostbyname(socket.gethostname())
+    print(f"* Rodando app em {local_ip}")
+    print(f"* Adicione comandos em http://{local_ip}:5000/admin")
     app.run(host='0.0.0.0')
