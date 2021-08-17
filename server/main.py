@@ -107,7 +107,9 @@ def exec_command(command_index):
 
 if __name__ == '__main__':
     Command.create_table()
-    local_ip = socket.gethostbyname(socket.gethostname())
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(('8.8.8.8', 1))
+    local_ip = s.getsockname()[0]
     print(f"* Rodando app em {local_ip}")
     print(f"* Adicione comandos em http://{local_ip}:5000/admin")
     app.run(host='0.0.0.0')
