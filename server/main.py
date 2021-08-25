@@ -1,53 +1,22 @@
 import os
 import socket
+
 import keyboard
-from decouple import config
 from flask import Flask, request
-from peewee import (
-    SqliteDatabase,
-    AutoField,
-    IntegerField,
-    CharField,
-    Model,
-    DoesNotExist
-)
 from flask_admin import Admin
-from flask_admin.contrib.peewee import ModelView
+from peewee import DoesNotExist
 
+from model_views import CommandView
+from models import Command
+from settings import *
 
-DEBUG = config('DEBUG', cast=bool, default=False)
-SECRET_KEY = config('SECRET_KEY', default="secret")
-FLASK_ADMIN_SWATCH = 'darkly'
 
 app = Flask(__name__)
 app.config.from_object(__name__)
-database =SqliteDatabase('database.db')
 admin = Admin(app, name='remote-commands', template_mode='bootstrap3')
-
-
-class Command(Model):
-    """
-    View que armazenará os possíveis comandos que poderão ser executados.
-    """
-    id = AutoField(primary_key=True)
-    index = IntegerField(unique=True)
-    command = CharField(max_length=255)
-
-    class Meta:
-        database = database
-
-
-class CommandView(ModelView):
-    """
-    View da model Command, com a exclusão da coluna 'id' da tela de admin,
-    pois não é interessante exibir este dado.
-    """
-    column_exclude_list = ('id',)
-
 
 # Adiciona as views na tela de Admin:
 admin.add_view(CommandView(Command))
-
 
 # Definição de endpoints da aplicação Flask
 @app.route('/shortcut', methods=['POST'])
@@ -107,6 +76,7 @@ def exec_command(command_index):
 
 if __name__ == '__main__':
     Command.create_table()
+    # Obter o IP local da máquina, apenas para exibição
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(('8.8.8.8', 1))
     local_ip = s.getsockname()[0]
