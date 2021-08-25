@@ -8,7 +8,7 @@
 
 Este app sobe um pequeno servidor Flask na sua máquina, e fica ouvindo por requisições vindas da rede local.
 
-Essas requisições podem ativar algum atalho de teclado na sua máquina, ou executar algum comando shell previamente cadastrado.
+Essas requisições podem ativar algum atalho de teclado na sua máquina, executar algum comando shell previamente cadastrado, ou carregar para o seu clipboard (famoso ctrl+v) algum texto também previamente cadastrado.
 
 Eu utilizo este app em conjunto com o app [HTTP Request Shortcuts](https://play.google.com/store/apps/details?id=ch.rmy.android.http_shortcuts&hl=en_US&gl=US) instalado em um celular. A partir dele envio as requests, e o celular funciona como um "controle remoto" que executa comandos no meu PC. Com isso eu economizo alguns alt+TABs e agilizo alguns testes onde preciso rodar o mesmo comando repetidas vezes no shell.
 
@@ -28,13 +28,13 @@ ou
 ./run.sh
 ```
 
-## Cadastrando comandos
+## Cadastrando comandos e textos para o clipboard
 
-Em seu navegador, acesse `http://localhost:5000/admin` para ir a área de cadastro de comandos.
+Em seu navegador, acesse `http://localhost:5000/admin` para ir a área de cadastro de **Command** e textos para o clipboard (apelidei de **Clipbullets**).
 
 ![Flask-admin](images/admin_print.png)
 
-Cadastre quantos comandos quiser.
+Cadastre quantos itens quiser.
 
 ## Executando
 
@@ -54,7 +54,13 @@ Para executar os comandos, envie uma requisição `GET` de qualquer dispositivo 
 - `http://<IP_da_sua_máquina>/command/<index_do_comando>`
   - O `index_do_comando` aqui  o mesmo número que você cadastrou na área de **admin**
 
-## O que eu usei
+### Executando clipbullets
+
+Para carregar os textos cadastrados para o seu clipboard, envie uma requisição `GET` de qualquer dispositivo de sua rede local para:
+- `http://<IP_da_sua_máquina>/clipbullet/<index_do_texto>`
+  - O `index_do_texto` aqui  o mesmo número que você cadastrou na área de **admin**
+
+## Stack
 
 Este projetinho utiliza os seguintes frameworks e packages para fazer sua magia:
 - **flask**: Micro-framework utilizado para fazer o servidor.
@@ -63,3 +69,4 @@ Este projetinho utiliza os seguintes frameworks e packages para fazer sua magia:
 - **python-decouple**: Para pegar variáveis de ambiente.
 - **peewee**: ORM que manipula o banco (que neste caso é um simples sqlite).
 - **wtf-peewee**: Dependência necessária para o flask-admin fazer seus paranauês.
+- **clipboard**: Para carregar coisas no famoso ctrl+v da massa.
