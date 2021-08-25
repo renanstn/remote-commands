@@ -10,5 +10,6 @@ flask-admin = "*"
 python-decouple = "*"
 peewee = "*"
 wtf-peewee = "*"
+clipboard = "*"
 
 [dev-packages]

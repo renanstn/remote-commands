@@ -1,13 +1,14 @@
 import os
 import socket
 
+import clipboard
 import keyboard
 from flask import Flask, request
 from flask_admin import Admin
 from peewee import DoesNotExist
 
-from model_views import CommandView
-from models import Command
+from model_views import CommomView
+from models import Command, Clipbullet
 from settings import *
 
 
@@ -16,7 +17,8 @@ app.config.from_object(__name__)
 admin = Admin(app, name='remote-commands', template_mode='bootstrap3')
 
 # Adiciona as views na tela de Admin:
-admin.add_view(CommandView(Command))
+admin.add_view(CommomView(Command))
+admin.add_view(CommomView(Clipbullet))
 
 # Definição de endpoints da aplicação Flask
 @app.route('/shortcut', methods=['POST'])
@@ -46,7 +48,7 @@ def shortcut():
 def exec_command(command_index):
     """
     Executa um comando no terminal. O comando deve ser previamente cadastrado
-    na tela de Admin do flask.
+    na tela de admin do Flask.
     Informar na URL o index do comando a ser executado.
     """
     try:
@@ -63,19 +65,32 @@ def exec_command(command_index):
     # output = subprocess.check_output(to_exec.command)
 
     if output == 0:
-        return {
-            "command": command,
-            "success": True
-        }
+        return {"command": command, "success": True}
     else:
+        return {"command": command, "success": False}
+
+
+@app.route('/clipbullet/<int:paste_index>')
+def load_clipbullet(paste_index):
+    """
+    Carrega um texto para o clipboard (famoso ctrl+v). O texto deve ser
+    previamente cadatrado na tela de admin do Flask.
+    Informar na URL o index do texto a ser copiado.
+    """
+    try:
+        to_copy = Clipbullet.get(index=paste_index)
+        clipboard.copy(to_copy.text)
+    except DoesNotExist:
         return {
-            "command": command,
-            "success": False
+            "success": False,
+            "message": f"Nenhum texto cadastrado com index {paste_index}"
         }
+    return {"success": True}
 
 
 if __name__ == '__main__':
     Command.create_table()
+    Clipbullet.create_table()
     # Obter o IP local da máquina, apenas para exibição
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(('8.8.8.8', 1))
