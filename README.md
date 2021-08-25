@@ -60,6 +60,8 @@ Para carregar os textos cadastrados para o seu clipboard, envie uma requisição
 - `http://<IP_da_sua_máquina>/clipbullet/<index_do_texto>`
   - O `index_do_texto` aqui  o mesmo número que você cadastrou na área de **admin**
 
+Após isso, o texto cadastrado estará no seu `ctrl+v`
+
 ## Stack
 
 Este projetinho utiliza os seguintes frameworks e packages para fazer sua magia:
