@@ -43,8 +43,7 @@ def shortcut():
         return {"success": False, "message": "command not found"}
     return {"success": True}
 
-
-@app.route('/command/<int:command_index>')
+@app.route('/command/<int:command_index>', methods=['POST'])
 def exec_command(command_index):
     """
     Executa um comando no terminal. O comando deve ser previamente cadastrado
@@ -69,8 +68,7 @@ def exec_command(command_index):
     else:
         return {"command": command, "success": False}
 
-
-@app.route('/clipbullet/<int:paste_index>')
+@app.route('/clipbullet/<int:paste_index>', methods=['POST'])
 def load_clipbullet(paste_index):
     """
     Carrega um texto para o clipboard (famoso ctrl+v). O texto deve ser
