@@ -8,7 +8,7 @@ from database import database
 
 
 class Command(Model):
-    id = AutoField(primary_key=True)
+    id = AutoField()
     command = TextField()
 
     class Meta:
@@ -16,7 +16,7 @@ class Command(Model):
 
 
 class Clipbullet(Model):
-    id = AutoField(primary_key=True)
+    id = AutoField()
     text = TextField()
 
     class Meta:
