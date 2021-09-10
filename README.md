@@ -48,8 +48,8 @@ Para executar um atalho, envie uma requisição `POST` com o seguinte body JSON,
 }
 ```
 - Os atalhos disponíveis até o momento são:
-- `minimize_all`: Executa um `winkey + d`, minimizando todas as janelas do windows
-- `mute_unmute_meet`: Executa um `ctrl + d`, o atalho padrão para mutar/desmutar uma chamada no Google Meet
+    - `minimize_all`: Executa um `winkey + d`, minimizando todas as janelas do windows
+    - `mute_unmute_meet`: Executa um `ctrl + d`, o atalho padrão para mutar/desmutar uma chamada no Google Meet
 
 ### Executando comandos
 
