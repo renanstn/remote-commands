@@ -24,7 +24,7 @@ pipenv install
 pipenv run python server/main.py
 ```
 ou
-```
+```sh
 ./run.sh
 ```
 
@@ -44,21 +44,24 @@ Para executar um atalho, envie uma requisição `POST` com o seguinte body JSON,
 - `http://<IP_da_sua_máquina>/shortcut`
 ```json
 {
-    "command": "<nome_do_atalho>"
+    "shortcut": "<nome_do_atalho>"
 }
 ```
+- Os atalhos disponíveis até o momento são:
+- `minimize_all`: Executa um `winkey + d`, minimizando todas as janelas do windows
+- `mute_unmute_meet`: Executa um `ctrl + d`, o atalho padrão para mutar/desmutar uma chamada no Google Meet
 
 ### Executando comandos
 
 Para executar os comandos, envie uma requisição `GET` de qualquer dispositivo de sua rede local para:
-- `http://<IP_da_sua_máquina>/command/<index_do_comando>`
-  - O `index_do_comando` aqui  o mesmo número que você cadastrou na área de **admin**
+- `http://<IP_da_sua_máquina>/command/<id_do_comando>`
+  - O `index_do_comando` aqui é o mesmo número que você cadastrou na área de **admin**
 
 ### Executando clipbullets
 
 Para carregar os textos cadastrados para o seu clipboard, envie uma requisição `GET` de qualquer dispositivo de sua rede local para:
-- `http://<IP_da_sua_máquina>/clipbullet/<index_do_texto>`
-  - O `index_do_texto` aqui  o mesmo número que você cadastrou na área de **admin**
+- `http://<IP_da_sua_máquina>/clipbullet/<id_do_texto>`
+  - O `index_do_texto` aqui é o mesmo número que você cadastrou na área de **admin**
 
 Após isso, o texto cadastrado estará no seu `ctrl+v`
 
