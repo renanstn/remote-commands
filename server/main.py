@@ -6,8 +6,8 @@ import keyboard
 from flask import Flask, request
 from flask_admin import Admin
 from peewee import DoesNotExist
+from flask_admin.contrib.peewee import ModelView
 
-from model_views import CommomView
 from models import Command, Clipbullet
 from settings import *
 
@@ -16,47 +16,46 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 admin = Admin(app, name='remote-commands', template_mode='bootstrap3')
 
-# Adiciona as views na tela de Admin:
-admin.add_view(CommomView(Command))
-admin.add_view(CommomView(Clipbullet))
+# Add views to flask admin
+admin.add_view(ModelView(Command))
+admin.add_view(ModelView(Clipbullet))
 
-# Definição de endpoints da aplicação Flask
+# Define endpoints
 @app.route('/shortcut', methods=['POST'])
 def shortcut():
     """
-    Recebe um json que deve conter a chave 'command', com o nome de um atalho
-    a ser executado.
-    Atalhos válidos até o momento:
-    - minimize_all: windows + d
+    Expects a JSON containing the shortcut name in 'shortcut' field
+    Shortcut must be one of this:
+    - 'minimize_all'
+    - 'mute_unmute_meet'
     """
     data = request.get_json()
-    if not data.get('command', False):
+    if not data.get('shortcut', False):
         return {
             "success": False,
-            "message": "send command name in 'command' field"
+            "message": "Send shortcut name in 'shortcut' field"
         }
-    if data.get('command') == 'minimize_all':
+    if data.get('shortcut') == 'minimize_all':
         keyboard.press_and_release('windows+d')
-    elif data.get('command') == 'mute_unmute_meet':
+    elif data.get('shortcut') == 'mute_unmute_meet':
         keyboard.press_and_release('ctrl+d')
     else:
-        return {"success": False, "message": "command not found"}
+        return {"success": False, "message": "Shortcut not found"}
     return {"success": True}
 
-@app.route('/command/<int:command_index>', methods=['POST'])
-def exec_command(command_index):
+@app.route('/command/<int:command_id>', methods=['POST'])
+def exec_command(command_id):
     """
-    Executa um comando no terminal. O comando deve ser previamente cadastrado
-    na tela de admin do Flask.
-    Informar na URL o index do comando a ser executado.
+    Exec a previously created command in terminal
+    The command ID must be informed in URL
     """
     try:
-        to_exec = Command.get(index=command_index)
+        to_exec = Command.get(id=command_id)
         command = to_exec.command
     except DoesNotExist:
         return {
             "success": False,
-            "message": f"Nenhum comando cadastrado com index {command_index}"
+            "message": f"Command not found: ID {command_id}"
         }
 
     # Executa o comando
@@ -68,20 +67,19 @@ def exec_command(command_index):
     else:
         return {"command": command, "success": False}
 
-@app.route('/clipbullet/<int:paste_index>', methods=['POST'])
-def load_clipbullet(paste_index):
+@app.route('/clipbullet/<int:paste_id>', methods=['POST'])
+def load_clipbullet(paste_id):
     """
-    Carrega um texto para o clipboard (famoso ctrl+v). O texto deve ser
-    previamente cadatrado na tela de admin do Flask.
-    Informar na URL o index do texto a ser copiado.
+    Loads a previously created text to clipboard
+    The text ID must be informed in URL
     """
     try:
-        to_copy = Clipbullet.get(index=paste_index)
+        to_copy = Clipbullet.get(id=paste_id)
         clipboard.copy(to_copy.text)
     except DoesNotExist:
         return {
             "success": False,
-            "message": f"Nenhum texto cadastrado com index {paste_index}"
+            "message": f"Text not found: ID {paste_id}"
         }
     return {"success": True}
 
@@ -93,6 +91,6 @@ if __name__ == '__main__':
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(('8.8.8.8', 1))
     local_ip = s.getsockname()[0]
-    print(f"* Rodando app em {local_ip}")
-    print(f"* Adicione comandos em http://{local_ip}:5000/admin")
+    print(f" * Running app on: {local_ip}")
+    print(f" * Add commands on: http://{local_ip}:5000/admin")
     app.run(host='0.0.0.0')
