@@ -12,6 +12,14 @@ Essas requisições podem ativar algum atalho de teclado na sua máquina, execut
 
 Eu utilizo este app em conjunto com o app [HTTP Request Shortcuts](https://play.google.com/store/apps/details?id=ch.rmy.android.http_shortcuts&hl=en_US&gl=US) instalado em um celular. A partir dele envio as requests, e o celular funciona como um "controle remoto" que executa comandos no meu PC. Com isso eu economizo alguns alt+TABs e agilizo alguns testes onde preciso rodar o mesmo comando repetidas vezes no shell.
 
+## Dependências
+
+Para que a função **pastebullet** funcione em sistemas linux, é necessário ter o `xclip` instalado:
+
+```
+sudo apt-get install xclip
+```
+
 ## Setup
 
 - Clone o repositório
