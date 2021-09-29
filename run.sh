@@ -1,1 +1,1 @@
-sudo pipenv run python server/main.py
+python -m pipenv run python server/main.py
