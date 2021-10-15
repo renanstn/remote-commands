@@ -38,7 +38,7 @@ pipenv run python server/main.py
 
 ## Cadastrando comandos e textos para o clipboard
 
-Em seu navegador, acesse `http://localhost:5000/admin` para ir a área de cadastro de **Command** e textos para o clipboard (apelidei de **Clipbullets**).
+Em seu navegador, acesse `http://localhost:5000/admin` para ir a área de cadastro de **Command** e textos para o clipboard (apelidei de **Clipbullet**).
 
 ![Flask-admin](images/admin_print.png)
 
@@ -63,13 +63,13 @@ Para executar um atalho, envie uma requisição `POST` com o seguinte body JSON,
 
 Para executar os comandos, envie uma requisição `GET` de qualquer dispositivo de sua rede local para:
 - `http://<IP_da_sua_máquina>/command/<id_do_comando>`
-  - O `index_do_comando` aqui é o mesmo número que você cadastrou na área de **admin**
+  - O `id_do_comando` aqui é o `id` automaticamente gerado para o comando que você cadastrou na área de **admin**
 
 ### Executando clipbullets
 
 Para carregar os textos cadastrados para o seu clipboard, envie uma requisição `GET` de qualquer dispositivo de sua rede local para:
 - `http://<IP_da_sua_máquina>/clipbullet/<id_do_texto>`
-  - O `index_do_texto` aqui é o mesmo número que você cadastrou na área de **admin**
+  - O `id_do_texto` aqui é o `id` automaticamente gerado para o texto que você cadastrou na área de **admin**
 
 Após isso, o texto cadastrado estará no seu `ctrl+v`
 
