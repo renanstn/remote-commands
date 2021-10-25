@@ -83,3 +83,4 @@ Este projetinho utiliza os seguintes frameworks e packages para fazer sua magia:
 - **peewee**: ORM que manipula o banco (que neste caso é um simples sqlite).
 - **wtf-peewee**: Dependência necessária para o flask-admin fazer seus paranauês.
 - **clipboard**: Para carregar coisas no famoso ctrl+v da massa.
+- **chime**: Para emitir sinais sonoros ao completar cada comando

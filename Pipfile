@@ -11,5 +11,6 @@ python-decouple = "*"
 peewee = "*"
 wtf-peewee = "*"
 clipboard = "*"
+chime = "*"
 
 [dev-packages]
