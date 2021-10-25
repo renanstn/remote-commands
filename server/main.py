@@ -1,6 +1,7 @@
 import os
 import socket
 
+import chime
 import clipboard
 import keyboard
 from flask import Flask, request
@@ -12,6 +13,7 @@ from models import Command, Clipbullet
 from settings import *
 
 
+chime.theme('mario')
 app = Flask(__name__)
 app.config.from_object(__name__)
 admin = Admin(app, name='remote-commands', template_mode='bootstrap3')
@@ -63,8 +65,10 @@ def exec_command(command_id):
     # output = subprocess.check_output(to_exec.command)
 
     if output == 0:
+        chime.success()
         return {"command": command, "success": True}
     else:
+        chime.error()
         return {"command": command, "success": False}
 
 @app.route('/clipbullet/<int:paste_id>', methods=['POST'])
@@ -76,6 +80,7 @@ def load_clipbullet(paste_id):
     try:
         to_copy = Clipbullet.get(id=paste_id)
         clipboard.copy(to_copy.text)
+        chime.info()
     except DoesNotExist:
         return {
             "success": False,
