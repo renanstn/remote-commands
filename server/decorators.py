@@ -16,7 +16,6 @@ def requires_auth(function):
         expected_token = f"Bearer {TOKEN}"
         if request.headers.get("Authorization") != expected_token:
             return {"success": False, "message": "Invalid token"}
-        else:
-            return function(*args, **kwargs)
+        return function(*args, **kwargs)
 
     return decorated_function
