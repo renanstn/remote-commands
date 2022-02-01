@@ -10,6 +10,7 @@ from peewee import DoesNotExist
 from flask_admin.contrib.peewee import ModelView
 
 from models import Command, Clipbullet
+from decorators import requires_auth
 from settings import *
 
 
@@ -24,6 +25,7 @@ admin.add_view(ModelView(Clipbullet))
 
 # Define endpoints
 @app.route("/shortcut", methods=["POST"])
+@requires_auth
 def shortcut():
     """
     Expects a JSON containing the shortcut name in 'shortcut' field
@@ -47,6 +49,7 @@ def shortcut():
 
 
 @app.route("/command/<int:command_id>", methods=["POST"])
+@requires_auth
 def exec_command(command_id):
     """
     Exec a previously created command in terminal
@@ -74,6 +77,7 @@ def exec_command(command_id):
 
 
 @app.route("/clipbullet/<int:paste_id>", methods=["POST"])
+@requires_auth
 def load_clipbullet(paste_id):
     """
     Loads a previously created text to clipboard
