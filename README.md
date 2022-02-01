@@ -73,6 +73,18 @@ Para carregar os textos cadastrados para o seu clipboard, envie uma requisição
 
 Após isso, o texto cadastrado estará no seu `ctrl+v`
 
+## Segurança
+
+Caso você nãos e sinta seguro de deixar um endopint aberto que execute scripts em sua rede local, você pode criar um **token de autenticação**. 
+
+Para isso, crie um arquivo `.env` na raíz e defina a variável `TOKEN` para um valor a sua escolha.
+
+A partir do momento que a variável de ambiente `TOKEN` está definida, toda request para funcionar deverá conter o seguinte header:
+
+```
+Authentication: Bearer <seu TOKEN>
+```
+
 ## Stack
 
 Este projetinho utiliza os seguintes frameworks e packages para fazer sua magia:
