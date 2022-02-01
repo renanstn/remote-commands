@@ -33,7 +33,10 @@ def shortcut():
     """
     data = request.get_json()
     if not data.get("shortcut", False):
-        return {"success": False, "message": "Send shortcut name in 'shortcut' field"}
+        return {
+            "success": False,
+            "message": "Send shortcut name in 'shortcut' field",
+        }
     if data.get("shortcut") == "minimize_all":
         keyboard.press_and_release("windows+d")
     elif data.get("shortcut") == "mute_unmute_meet":
@@ -53,7 +56,10 @@ def exec_command(command_id):
         to_exec = Command.get(id=command_id)
         command = to_exec.command
     except DoesNotExist:
-        return {"success": False, "message": f"Command not found: ID {command_id}"}
+        return {
+            "success": False,
+            "message": f"Command not found: ID {command_id}",
+        }
 
     # Executa o comando
     output = os.system(command)
