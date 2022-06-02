@@ -24,9 +24,11 @@ sudo apt-get install xclip
 
 - Clone o repositório
 - Instale as dependência utilizando o `pipenv`
+
 ```sh
 pipenv install
 ```
+
 - Inicie o app com o comando
 ```sh
 pipenv run python server/main.py
