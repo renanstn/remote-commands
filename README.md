@@ -23,9 +23,10 @@ comando repetidas vezes no shell.
 
 ## Dependências
 
-Para que a função **pastebullet** funcione em sistemas linux, é necessário ter o `xclip` instalado:
+Para que a função **pastebullet** funcione em sistemas linux, é necessário ter o
+`xclip` instalado:
 
-```
+```sh
 sudo apt-get install xclip
 ```
 
@@ -76,10 +77,10 @@ a partir de qualquer dispositivo de sua rede local para:
 ```
 
 - Os atalhos disponíveis até o momento são:
-    - `minimize_all`: Executa um `winkey + d`, minimizando todas as janelas do
-    windows
-    - `mute_unmute_meet`: Executa um `ctrl + d`, o atalho padrão para
-    mutar/desmutar uma chamada no Google Meet
+  - `minimize_all`: Executa um `winkey + d`, minimizando todas as janelas do
+  windows
+  - `mute_unmute_meet`: Executa um `ctrl + d`, o atalho padrão para
+  mutar/desmutar uma chamada no Google Meet
 
 ### Executando comandos
 
@@ -112,7 +113,7 @@ valor a sua escolha.
 A partir do momento que a variável de ambiente `TOKEN` está definida, toda
 request para funcionar deverá conter o seguinte header:
 
-```
+```text
 Authentication: Bearer <seu TOKEN>
 ```
 
@@ -120,6 +121,7 @@ Authentication: Bearer <seu TOKEN>
 
 Este projetinho utiliza os seguintes frameworks e packages para fazer sua
 magia:
+
 - **flask**: Micro-framework utilizado para fazer o servidor.
 - **keyboard**: Lib utilizada para disparar atalhos de teclado na máquina.
 - **flask-admin**: Lib que fornece pronta uma área de admin para as Models do
